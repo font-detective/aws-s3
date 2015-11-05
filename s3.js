@@ -1,3 +1,6 @@
+// Luke Mitchell
+// 2015
+
 var AWS = require("aws-sdk");
 var fs = require("fs");
 var crypto = require('crypto');
