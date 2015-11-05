@@ -7,6 +7,8 @@ var crypto = require('crypto');
 
 // Set location to Ireland
 AWS.config.region = "eu-west-1";
+
+var s3 = new AWS.S3();
 var defaultBucket = "fontdetective";
 
 // Puts a file in specified (bucket, key)
@@ -28,14 +30,14 @@ function putS3(body, key, bucket, callback) {
 function getFileS3(filename, key, bucket, callback) {
   var params = {Bucket: bucket, Key: key};
   var file = require('fs').createWriteStream(filename);
-  new AWS.S3().getObject(params).createReadStream().on("finish", callback).pipe(file);
+  s3.getObject(params).createReadStream().on("finish", callback).pipe(file);
 }
 
 // Gets data from specified (bucket, key)
 // returns a callback with err, data
 function getS3(callback, key, bucket, callback) {
   var params = {Bucket: bucket, Key: key};
-  new AWS.S3().getObject(params, callback).send();
+  s3.getObject(params, callback).send();
 }
 
 // Create checksum of string
